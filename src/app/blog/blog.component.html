@@ -1,0 +1,85 @@
+<header>
+    <div class="name">Angular Blog</div>
+    <div class="btns">
+        <button *ngIf="!signin" class="signin" (click)="SignIn()">Sign in</button>
+        <button  *ngIf="!signin" class="signup" (click)="SignUp()">Sign up</button>
+        <button *ngIf="signin" class="add signin" (click)="AddPost()">Add post</button>
+        <button *ngIf="signin" class="user_name" disabled = 'disabled'>{{name}}</button>
+        <button  *ngIf="signin" class="signout signup" (click)="SignOut()">Sign Out</button>
+    </div>
+</header>
+
+<div class="FormIn" *ngIf="in">
+    <div class="box">
+        <div class="topic">
+            <div>Sign in</div>
+            <button (click)="CloseIn()">x</button>
+        </div>
+        <div class="first">
+            <p>Email:</p>
+            <input type="email" name="" id="" [(ngModel)]="EmailIn">
+            <p>Password:</p>
+            <input type="password" name="" id="" [(ngModel)]="passwordIn">
+        </div>
+        <div class="btns">
+            <button class="close" (click)="CloseIn()">Close</button>
+            <button class="submit" (click)="SubmitSignIn()">Submit</button>
+        </div>
+    </div>
+</div>
+<div class="FormUp" *ngIf="up">
+    <div class="box">
+        <div class="topic">
+            <div>Sign up</div>
+            <button (click)="CloseIn()">x</button>
+        </div>
+        <div class="first">
+            <p>Username:</p>
+            <input type="text" name="" id="" [(ngModel)]="regName">
+            <p>Email:</p>
+            <input type="email" name="" id="" [(ngModel)]="regEmail">
+            <p>Password:</p>
+            <input type="password" name="" id="" [(ngModel)]="regPassword">
+        </div>
+        <div class="btns">
+            <button class="close" (click)="CloseIn()">Close</button>
+            <button class="submit"(click)="Registration()">Submit</button>
+        </div>
+    </div>
+</div>
+
+<div class="post_box" *ngFor="let item of posts; index as i">
+    <div class="post">
+    <div class="post_left">
+        <h3 class="post_name">{{item.topic}}</h3>
+        <div class="post_author">Posted by: {{item.postedBy}}</div>
+        <div class="post_text">{{item.message}}</div>
+    </div>
+    <div class="post_right">{{item.date}}</div>
+</div>
+    <div class="btns" *ngIf="name=='admin'||(item.postedBy===name&&signin)">
+        <button class="edit" (click)="EditPost(i)">Edit</button>
+        <button class="delete"(click)="DeletePost(i)" >Delete</button>
+    </div>
+</div>
+
+<div class="post_con" *ngIf="addPost" >
+    <div class="box">
+        <div class="topic">
+            <div>Add post</div>
+            <button (click)="CloseIn()">x</button>
+        </div>
+        <div class="first">
+            <p>Title:</p>
+            <input type="email" name="" id="" [(ngModel)]="postName">
+            <p>Text:</p>
+            <textarea name="" id="" [(ngModel)]="postText" ></textarea>
+        </div>
+        <div class="btns">
+            <button class="close" (click)="CloseIn()">Close</button>
+            <button class="submit" (click)="Post()"*ngIf="!editPost" >Post</button>
+            <button class="submit" (click)="Edit()" *ngIf="editPost" >Edit Post</button>
+
+        </div>
+    </div>
+</div>
